@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RELS.Context;
 
@@ -10,9 +11,11 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    partial class RealEstateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240920035549_AddPropertiesXLessors")]
+    partial class AddPropertiesXLessors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,45 +23,6 @@ namespace RELS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("RELS.Model.Document", b =>
-                {
-                    b.Property<int>("DocumentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"));
-
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileRoute")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LessorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DocumentId");
-
-                    b.HasIndex("LessorId");
-
-                    b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("RELS.Model.Favorite", b =>
-                {
-                    b.Property<int>("FavoriteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FavoriteId"));
-
-                    b.HasKey("FavoriteId");
-
-                    b.ToTable("Favorites");
-                });
 
             modelBuilder.Entity("RELS.Model.Lessor", b =>
                 {
@@ -72,9 +36,6 @@ namespace RELS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("LessorId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.ToTable("Lessors");
                 });
@@ -91,9 +52,6 @@ namespace RELS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OwnerId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.ToTable("Owner");
                 });
@@ -184,76 +142,15 @@ namespace RELS.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("RELS.Model.Property", b =>
-                {
-                    b.Property<int>("PropertyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PropertyId"));
-
-                    b.Property<string>("Altitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Cost")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Latitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PropertyAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PropertyDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SectorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SquareMetersProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypePropertyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PropertyId");
-
-                    b.HasIndex("SectorId");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("TypePropertyId");
-
-                    b.ToTable("Properties");
-                });
-
             modelBuilder.Entity("RELS.Model.PropertyXLessor", b =>
                 {
-                    b.Property<int>("FavoriteId")
-                        .HasColumnType("int");
-
                     b.Property<int>("LessorId")
                         .HasColumnType("int");
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
-                    b.HasIndex("FavoriteId");
-
                     b.HasIndex("LessorId");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("PropertiesXLessors");
                 });
@@ -268,43 +165,7 @@ namespace RELS.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.HasIndex("PropertyId");
-
                     b.ToTable("PropertiesXOwners");
-                });
-
-            modelBuilder.Entity("RELS.Model.Sector", b =>
-                {
-                    b.Property<int>("SectorIdId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectorIdId"));
-
-                    b.Property<string>("SerctorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SectorIdId");
-
-                    b.ToTable("Sectors");
-                });
-
-            modelBuilder.Entity("RELS.Model.State", b =>
-                {
-                    b.Property<int>("StateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StateId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StateId");
-
-                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("RELS.Model.TypeDocument", b =>
@@ -322,23 +183,6 @@ namespace RELS.Migrations
                     b.HasKey("DocumentTypeId");
 
                     b.ToTable("TypesDocuments");
-                });
-
-            modelBuilder.Entity("RELS.Model.TypeProperty", b =>
-                {
-                    b.Property<int>("TypePropertyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypePropertyId"));
-
-                    b.Property<string>("NameTypeProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TypePropertyId");
-
-                    b.ToTable("TypesProperties");
                 });
 
             modelBuilder.Entity("RELS.Model.User", b =>
@@ -361,9 +205,6 @@ namespace RELS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,9 +213,6 @@ namespace RELS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.HasIndex("UserTypeId");
 
@@ -396,39 +234,6 @@ namespace RELS.Migrations
                     b.HasKey("UserTypeId");
 
                     b.ToTable("UserTypes");
-                });
-
-            modelBuilder.Entity("RELS.Model.Document", b =>
-                {
-                    b.HasOne("RELS.Model.Lessor", "Lessor")
-                        .WithMany()
-                        .HasForeignKey("LessorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lessor");
-                });
-
-            modelBuilder.Entity("RELS.Model.Lessor", b =>
-                {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Lessor")
-                        .HasForeignKey("RELS.Model.Lessor", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("RELS.Model.Owner", b =>
-                {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Owner")
-                        .HasForeignKey("RELS.Model.Owner", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("RELS.Model.PermissionXUser", b =>
@@ -461,58 +266,15 @@ namespace RELS.Migrations
                     b.Navigation("TypeDocument");
                 });
 
-            modelBuilder.Entity("RELS.Model.Property", b =>
-                {
-                    b.HasOne("RELS.Model.Sector", "Sectors")
-                        .WithMany()
-                        .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RELS.Model.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RELS.Model.TypeProperty", "TypesProperties")
-                        .WithMany()
-                        .HasForeignKey("TypePropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sectors");
-
-                    b.Navigation("State");
-
-                    b.Navigation("TypesProperties");
-                });
-
             modelBuilder.Entity("RELS.Model.PropertyXLessor", b =>
                 {
-                    b.HasOne("RELS.Model.Favorite", "Favorite")
-                        .WithMany()
-                        .HasForeignKey("FavoriteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RELS.Model.Lessor", "Lessor")
                         .WithMany()
                         .HasForeignKey("LessorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RELS.Model.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Favorite");
-
                     b.Navigation("Lessor");
-
-                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("RELS.Model.PropertyXOwner", b =>
@@ -523,46 +285,18 @@ namespace RELS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RELS.Model.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Owner");
-
-                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("RELS.Model.User", b =>
                 {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("User")
-                        .HasForeignKey("RELS.Model.User", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RELS.Model.UserType", "UserType")
                         .WithMany()
                         .HasForeignKey("UserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
-
                     b.Navigation("UserType");
-                });
-
-            modelBuilder.Entity("RELS.Model.Person", b =>
-                {
-                    b.Navigation("Lessor")
-                        .IsRequired();
-
-                    b.Navigation("Owner")
-                        .IsRequired();
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RELS.Context;
 
@@ -10,9 +11,11 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    partial class RealEstateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923044524_oneOnerelationships")]
+    partial class oneOnerelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
