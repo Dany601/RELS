@@ -9,9 +9,5 @@
         public required string UserName { get; set; }
 
         public virtual required UserType UserType { get; set; }
-
-        //para cuando el repositorio completo?
-
-
     }
 }
