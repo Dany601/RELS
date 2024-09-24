@@ -17,5 +17,6 @@
         public virtual required Owner Owner { get; set; }
         public virtual required Lessor Lessor { get; set; }
         public virtual required User User { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -16,6 +16,7 @@
         public virtual required State State { get; set; }
         public virtual required TypeProperty TypesProperties { get; set; }
         public virtual required Sector Sectors { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
 
     }
