@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RELS.Context;
 
@@ -10,9 +11,11 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    partial class RealEstateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923040929_Sectorstable")]
+    partial class Sectorstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace RELS.Migrations
 
                     b.HasKey("LessorId");
 
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
                     b.ToTable("Lessors");
                 });
 
@@ -91,9 +91,6 @@ namespace RELS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OwnerId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.ToTable("Owner");
                 });
@@ -361,9 +358,6 @@ namespace RELS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,9 +366,6 @@ namespace RELS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.HasIndex("UserTypeId");
 
@@ -407,28 +398,6 @@ namespace RELS.Migrations
                         .IsRequired();
 
                     b.Navigation("Lessor");
-                });
-
-            modelBuilder.Entity("RELS.Model.Lessor", b =>
-                {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Lessor")
-                        .HasForeignKey("RELS.Model.Lessor", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("RELS.Model.Owner", b =>
-                {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Owner")
-                        .HasForeignKey("RELS.Model.Owner", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("RELS.Model.PermissionXUser", b =>
@@ -536,33 +505,13 @@ namespace RELS.Migrations
 
             modelBuilder.Entity("RELS.Model.User", b =>
                 {
-                    b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("User")
-                        .HasForeignKey("RELS.Model.User", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RELS.Model.UserType", "UserType")
                         .WithMany()
                         .HasForeignKey("UserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
-
                     b.Navigation("UserType");
-                });
-
-            modelBuilder.Entity("RELS.Model.Person", b =>
-                {
-                    b.Navigation("Lessor")
-                        .IsRequired();
-
-                    b.Navigation("Owner")
-                        .IsRequired();
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -11,8 +11,8 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    [Migration("20240918172953_AddUserTypes")]
-    partial class AddUserTypes
+    [Migration("20240920025106_AddPermissionXUserTable")]
+    partial class AddPermissionXUserTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,13 +24,43 @@ namespace RELS.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RELS.Model.User", b =>
+            modelBuilder.Entity("RELS.Model.Permission", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PermissionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PermissionId");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("RELS.Model.PermissionXUser", b =>
+                {
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserTypeId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("PermissionsXUser");
+                });
+
+            modelBuilder.Entity("RELS.Model.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -51,7 +81,7 @@ namespace RELS.Migrations
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("UserTypeId");
 
@@ -60,19 +90,30 @@ namespace RELS.Migrations
 
             modelBuilder.Entity("RELS.Model.UserType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserTypeId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserTypeId");
 
                     b.ToTable("UserTypes");
+                });
+
+            modelBuilder.Entity("RELS.Model.PermissionXUser", b =>
+                {
+                    b.HasOne("RELS.Model.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
                 });
 
             modelBuilder.Entity("RELS.Model.User", b =>
