@@ -14,6 +14,18 @@ builder.Services.AddDbContext<RealEstateDbContext>(options => options.UseSqlServ
 // Document
 builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
+// Favorite
+builder.Services.AddScoped<IDocumentRepository, FavoriteRepository>();
+builder.Services.AddScoped<IDocumentService, FavoriteRepository>();
+// Lessor
+builder.Services.AddScoped<IDocumentRepository, LessorRepository>();
+builder.Services.AddScoped<IDocumentService, LessorRepository>();
+// Owner
+builder.Services.AddScoped<IDocumentRepository, OwnerRepository>();
+builder.Services.AddScoped<IDocumentService, OwnerRepository>();
+// Permission
+builder.Services.AddScoped<IDocumentRepository, PermissionRepository>();
+builder.Services.AddScoped<IDocumentService, PermissionRepository>();
 
 
 builder.Services.AddControllers();

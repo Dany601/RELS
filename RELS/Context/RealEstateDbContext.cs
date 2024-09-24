@@ -7,6 +7,8 @@ namespace RELS.Context
 {
     public class RealEstateDbContext : DbContext
     {
+        internal object Owner;
+
         public RealEstateDbContext(DbContextOptions options) : base(options)
         {
 
@@ -27,6 +29,7 @@ namespace RELS.Context
         public DbSet<State> States { get; set; }
         public DbSet<TypeProperty> TypesProperties { get; set; }
         public DbSet<Sector> Sectors { get; set; }
+        public object Owners { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
