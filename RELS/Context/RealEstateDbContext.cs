@@ -68,7 +68,7 @@ namespace RELS.Context
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Document>()
-                        .HasKey(u => u.DocumentId);
+                        .HasKey(u => u.Id);
 
 
             base.OnModelCreating(modelBuilder);
