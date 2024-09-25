@@ -32,14 +32,14 @@ namespace RELS.Repositories
         // Get lessor by Id
         public async Task<Lessor> GetLessorByIdAsync(int id)
         {
-            return await _context.Lessors
-            .FirstOrDefaultAsync(s => s.LessorId == id && !s.IsDeleted);
+            return await _context.Lessors.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
 
         }
         // Get all lessor
         public async Task<IEnumerable<Lessor>> GetAllLessorsAsync()
         {
-            return await _context.Lessors.AsNoTracking()
+            return await _context.Lessors
            .Where(s => !s.IsDeleted) // Avoid deleted items
            .ToListAsync();
 

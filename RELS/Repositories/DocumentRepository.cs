@@ -32,14 +32,14 @@ namespace RELS.Repositories
         // Get document by Id
         public async Task<Document> GetDocumentByIdAsync(int id)
         {
-            return await _context.Documents
+            return await _context.Documents.AsNoTracking()
             .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
 
         }
         // Get all document
         public async Task<IEnumerable<Document>> GetAllDocumentsAsync()
         {
-            return await _context.Documents.AsNoTracking()
+            return await _context.Documents
            .Where(s => !s.IsDeleted) // Avoid deleted items
            .ToListAsync();
 

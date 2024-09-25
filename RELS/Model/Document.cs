@@ -3,7 +3,6 @@
     public class Document
     {
         public int Id { get; set; }
-        public required int LessorId { get; set; }
         public required string FileRoute { get; set; }
         public required string Date { get; set; }
 

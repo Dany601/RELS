@@ -51,7 +51,7 @@ namespace RELS.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             await _PermissionService.CreatePermissionAsync(permission);
-            return CreatedAtAction(nameof(GetPermissionById), new { id = permission.PermissionId }, permission);
+            return CreatedAtAction(nameof(GetPermissionById), new { id = permission.Id }, permission);
         }
 
 
@@ -63,7 +63,7 @@ namespace RELS.Controllers
 
         public async Task<IActionResult> UpdatePermission(int id, [FromForm] Permission permission)
         {
-            if (id != permission.PermissionId) return BadRequest();
+            if (id != permission.Id) return BadRequest();
 
             var existingUser = await _PermissionService.GetPermissionByIdAsync(id);
             if (existingUser == null) return NotFound();

@@ -7,8 +7,6 @@ namespace RELS.Context
 {
     public class RealEstateDbContext : DbContext
     {
-        internal object Owner;
-
         public RealEstateDbContext(DbContextOptions options) : base(options)
         {
 
@@ -29,13 +27,13 @@ namespace RELS.Context
         public DbSet<State> States { get; set; }
         public DbSet<TypeProperty> TypesProperties { get; set; }
         public DbSet<Sector> Sectors { get; set; }
-        public object Owners { get; internal set; }
+        public DbSet<Owner> Owners { get;  set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>()
-                .HasKey(u => u.UserId);
+                .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PermissionXUser>()
@@ -43,19 +41,19 @@ namespace RELS.Context
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Permission>()
-                        .HasKey(u => u.PermissionId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Person>()
-                        .HasKey(u => u.PersonId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TypeDocument>()
-                        .HasKey(u => u.DocumentTypeId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Lessor>()
-                        .HasKey(u => u.LessorId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PropertyXOwner>()
@@ -67,46 +65,49 @@ namespace RELS.Context
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Property>()
-                        .HasKey(u => u.PropertyId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Document>()
                         .HasKey(u => u.Id);
 
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Owner>()
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Favorite>()
-                        .HasKey(u => u.FavoriteId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<State>()
-                        .HasKey(u => u.StateId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TypeProperty>()
-                        .HasKey(u => u.TypePropertyId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Sector>()
-                        .HasKey(u => u.SectorIdId);
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Person>()
                         .HasOne(p => p.Owner)
                         .WithOne(p => p.Person)
-                        .HasForeignKey<Owner>(o => o.PersonId);
+                        .HasForeignKey<Owner>(o => o.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Person>()
                         .HasOne(p => p.Lessor)
                         .WithOne(p => p.Person)
-                        .HasForeignKey<Lessor>(o => o.PersonId);
+                        .HasForeignKey<Lessor>(o => o.Id);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Person>()
                         .HasOne(p => p.User)
                         .WithOne(p => p.Person)
-                        .HasForeignKey<User>(o => o.PersonId);
+                        .HasForeignKey<User>(o => o.Id);
         }
     }
 

@@ -32,14 +32,14 @@ namespace RELS.Repositories
         // Get permission by Id
         public async Task<Permission> GetPermissionByIdAsync(int id)
         {
-            return await _context.Permissions
-            .FirstOrDefaultAsync(s => s.PermissionId == id && !s.IsDeleted);
+            return await _context.Permissions.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
 
         }
         // Get all permission
         public async Task<IEnumerable<Permission>> GetAllPermissionsAsync()
         {
-            return await _context.Permissions.AsNoTracking()
+            return await _context.Permissions
            .Where(s => !s.IsDeleted) // Avoid deleted items
            .ToListAsync();
 
