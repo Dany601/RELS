@@ -2,7 +2,9 @@
 {
     public class TypeProperty
     {
-        public int TypePropertyId { get; set; }
+        public int Id { get; set; }
         public required string NameTypeProperty { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

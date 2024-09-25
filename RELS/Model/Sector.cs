@@ -2,7 +2,8 @@
 {
     public class Sector
     {
-        public int SectorIdId { get; set; }
+        public int Id { get; set; }
         public required string SerctorName { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }
