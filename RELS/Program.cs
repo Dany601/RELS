@@ -32,6 +32,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IPermissionXUserRepository, PermissionXUserRepository>();
+builder.Services.AddScoped<IPermissionXUserService, PermissionXUserService>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IPropertyXLessorRepository, PropertyXLessorRepository>();
+builder.Services.AddScoped<IPropertyXLessorService, PropertyXLessorService>();
+builder.Services.AddScoped<IPropertyXOwnerRepository, PropertyXOwnerRepository>();
+builder.Services.AddScoped<IPropertyXOwnerService, PropertyXOwnerService>();
 
 var app = builder.Build();
 

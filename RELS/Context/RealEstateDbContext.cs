@@ -22,6 +22,7 @@ namespace RELS.Context
         public DbSet<PropertyXOwner> PropertiesXOwners { get; set; }
         public DbSet<PropertyXLessor> PropertiesXLessors { get; set; }
         public DbSet<Property> Properties { get; set; }
+        public DbSet<Owner> Owners { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<State> States { get; set; }

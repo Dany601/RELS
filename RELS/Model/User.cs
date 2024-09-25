@@ -9,6 +9,8 @@
         public required string Password { get; set; }
         public required string UserName { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public virtual required UserType UserType { get; set; }
         public virtual required Person Person { get; set; }
 
