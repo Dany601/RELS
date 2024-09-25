@@ -15,17 +15,17 @@ builder.Services.AddDbContext<RealEstateDbContext>(options => options.UseSqlServ
 builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 // Favorite
-builder.Services.AddScoped<IDocumentRepository, FavoriteRepository>();
-builder.Services.AddScoped<IDocumentService, FavoriteRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 // Lessor
-builder.Services.AddScoped<IDocumentRepository, LessorRepository>();
-builder.Services.AddScoped<IDocumentService, LessorRepository>();
+builder.Services.AddScoped<ILessorRepository, LessorRepository>();
+builder.Services.AddScoped<ILessorService, LessorService>();
 // Owner
-builder.Services.AddScoped<IDocumentRepository, OwnerRepository>();
-builder.Services.AddScoped<IDocumentService, OwnerRepository>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
 // Permission
-builder.Services.AddScoped<IDocumentRepository, PermissionRepository>();
-builder.Services.AddScoped<IDocumentService, PermissionRepository>();
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 
 
 builder.Services.AddControllers();

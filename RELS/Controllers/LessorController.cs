@@ -51,7 +51,7 @@ namespace RELS.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             await _LessorService.CreateLessorAsync(lessor);
-            return CreatedAtAction(nameof(GetLessorById), new { id = lessor.LessorId }, lessor);
+            return CreatedAtAction(nameof(GetLessorById), new { id = lessor.Id }, lessor);
         }
 
 
@@ -63,7 +63,7 @@ namespace RELS.Controllers
 
         public async Task<IActionResult> UpdateLessor(int id, [FromForm] Lessor lessor)
         {
-            if (id != lessor.LessorId) return BadRequest();
+            if (id != lessor.Id) return BadRequest();
 
             var existingUser = await _LessorService.GetLessorByIdAsync(id);
             if (existingUser == null) return NotFound();

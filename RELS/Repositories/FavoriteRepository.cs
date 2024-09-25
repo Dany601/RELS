@@ -32,14 +32,14 @@ namespace RELS.Repositories
         // Get favorite by Id
         public async Task<Favorite> GetFavoriteByIdAsync(int id)
         {
-            return await _context.Favorites
-            .FirstOrDefaultAsync(s => s.FavoriteId == id && !s.IsDeleted);
+            return await _context.Favorites.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
 
         }
         // Get all favorite
         public async Task<IEnumerable<Favorite>> GetAllFavoritesAsync()
         {
-            return await _context.Favorites.AsNoTracking()
+            return await _context.Favorites
            .Where(s => !s.IsDeleted) // Avoid deleted items
            .ToListAsync();
 

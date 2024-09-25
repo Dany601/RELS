@@ -32,14 +32,14 @@ namespace RELS.Repositories
         // Get owner by Id
         public async Task<Owner> GetOwnerByIdAsync(int id)
         {
-            return await _context.Owners
-            .FirstOrDefaultAsync(s => s.OwnerId == id && !s.IsDeleted);
+            return await _context.Owners.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
 
         }
         // Get all owner
         public async Task<IEnumerable<Owner>> GetAllOwnersAsync()
         {
-            return await _context.Owners.AsNoTracking()
+            return await _context.Owners
            .Where(s => !s.IsDeleted) // Avoid deleted items
            .ToListAsync();
 

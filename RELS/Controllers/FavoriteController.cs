@@ -51,7 +51,7 @@ namespace RELS.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             await _FavoriteService.CreateFavoriteAsync(favorite);
-            return CreatedAtAction(nameof(GetFavoriteById), new { id = favorite.FavoriteId }, favorite);
+            return CreatedAtAction(nameof(GetFavoriteById), new { id = favorite.Id }, favorite);
         }
 
 
@@ -63,7 +63,7 @@ namespace RELS.Controllers
 
         public async Task<IActionResult> UpdateFavorite(int id, [FromForm] Favorite favorite)
         {
-            if (id != favorite.FavoriteId) return BadRequest();
+            if (id != favorite.Id) return BadRequest();
 
             var existingUser = await _FavoriteService.GetFavoriteByIdAsync(id);
             if (existingUser == null) return NotFound();

@@ -51,7 +51,7 @@ namespace RELS.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             await _OwnerService.CreateOwnerAsync(owner);
-            return CreatedAtAction(nameof(GetOwnerById), new { id = owner.OwnerId }, owner);
+            return CreatedAtAction(nameof(GetOwnerById), new { id = owner.Id }, owner);
         }
 
 
@@ -63,7 +63,7 @@ namespace RELS.Controllers
 
         public async Task<IActionResult> UpdateOwner(int id, [FromForm] Owner owner)
         {
-            if (id != owner.OwnerId) return BadRequest();
+            if (id != owner.Id) return BadRequest();
 
             var existingUser = await _OwnerService.GetOwnerByIdAsync(id);
             if (existingUser == null) return NotFound();
