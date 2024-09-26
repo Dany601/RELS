@@ -26,6 +26,9 @@ builder.Services.AddScoped<IOwnerService, OwnerService>();
 // Permission
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
+// Sector
+builder.Services.AddScoped<ISectorRepository, SectorRepository>();
+builder.Services.AddScoped<ISectorService, SectorService>();
 
 
 builder.Services.AddControllers();
