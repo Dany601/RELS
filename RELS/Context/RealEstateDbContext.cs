@@ -109,6 +109,13 @@ namespace RELS.Context
                         .HasOne(p => p.User)
                         .WithOne(p => p.Person)
                         .HasForeignKey<User>(o => o.Id);
+
+
+            modelBuilder.Entity<DocumentHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<FavoriteHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<LessorHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<OwnerHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<PermissionHistory>().HasKey(u => u.Id);
         }
     }
 
