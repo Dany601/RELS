@@ -45,6 +45,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 // UserType
 builder.Services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 builder.Services.AddScoped<IUserTypeService, UserTypeService>();
+// Person
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+// Property
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 
 builder.Services.AddControllers();

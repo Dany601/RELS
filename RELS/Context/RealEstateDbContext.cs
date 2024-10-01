@@ -28,7 +28,14 @@ namespace RELS.Context
         public DbSet<TypeProperty> TypesProperties { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Owner> Owners { get;  set; }
-
+        public DbSet<UserHistory> UserHistories { get; set; }
+        public DbSet<UserTypeHistory> UserTypeHistories { get; set; }
+        public DbSet<TypePropertyHistory> TypePropertyHistories { get; set; }
+        public DbSet<TypeDocumentHistory> TypeDocumentHistories { get; set; }
+        public DbSet<StateHistory> StateHistories { get; set; }
+        public DbSet<SectorHistory> SectorHistories { get; set; }
+        public DbSet<PropertyHistory> PropertyHistories { get; set; }
+        public DbSet<PersonHistory> PersonHistories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
