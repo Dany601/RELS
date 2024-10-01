@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RELS.Context;
 
@@ -11,9 +12,11 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    partial class RealEstateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001224229_historicalsTablesDocLessOwnPermFav")]
+    partial class historicalsTablesDocLessOwnPermFav
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,20 +145,12 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Lessor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("Lessors");
 
@@ -193,20 +188,12 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Owner", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("Owners");
 
@@ -359,14 +346,9 @@ namespace RELS.Migrations
                     b.Property<int>("TypeDocumentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TypeDocumentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("People");
                 });
@@ -550,13 +532,26 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");
@@ -602,8 +597,8 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Lessor", b =>
                 {
                     b.HasOne("RELS.Model.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
+                        .WithOne("Lessor")
+                        .HasForeignKey("RELS.Model.Lessor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -613,8 +608,8 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Owner", b =>
                 {
                     b.HasOne("RELS.Model.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
+                        .WithOne("Owner")
+                        .HasForeignKey("RELS.Model.Owner", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -648,15 +643,7 @@ namespace RELS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RELS.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("TypeDocument");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RELS.Model.Property", b =>
@@ -734,13 +721,33 @@ namespace RELS.Migrations
 
             modelBuilder.Entity("RELS.Model.User", b =>
                 {
+                    b.HasOne("RELS.Model.Person", "Person")
+                        .WithOne("User")
+                        .HasForeignKey("RELS.Model.User", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RELS.Model.UserType", "UserType")
                         .WithMany()
                         .HasForeignKey("UserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Person");
+
                     b.Navigation("UserType");
+                });
+
+            modelBuilder.Entity("RELS.Model.Person", b =>
+                {
+                    b.Navigation("Lessor")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
