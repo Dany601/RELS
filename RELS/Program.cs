@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RELS.Context;
+using RELS.Model;
 using RELS.Repositories;
 using RELS.Services;
 
@@ -26,6 +27,30 @@ builder.Services.AddScoped<IOwnerService, OwnerService>();
 // Permission
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
+// Sector
+builder.Services.AddScoped<ISectorRepository, SectorRepository>();
+builder.Services.AddScoped<ISectorService, SectorService>();
+// State
+builder.Services.AddScoped<IStateRepository, StateRepository>();
+builder.Services.AddScoped<IStateService, StateService>();
+// TypeDocument
+builder.Services.AddScoped<ITypeDocumentRepository, TypeDocumentRepository>();
+builder.Services.AddScoped<ITypeDocumentService, TypeDocumentService>();
+// TypeProperty
+builder.Services.AddScoped<ITypePropertyRepository, TypePropertyRepository>();
+builder.Services.AddScoped<ITypePropertyService, TypePropertyService>();
+// User
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+// UserType
+builder.Services.AddScoped<IUserTypeRepository, UserTypeRepository>();
+builder.Services.AddScoped<IUserTypeService, UserTypeService>();
+// Person
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+// Property
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 
 builder.Services.AddControllers();
