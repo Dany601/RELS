@@ -12,9 +12,12 @@
         public required string Email { get; set; }
         public required string CellPhoneNumber { get; set; }
         public required string LandlineTelephone { get; set; }
+        public required string Pasword { get; set; }
 
         public virtual required TypeDocument TypeDocument { get; set; }
         public virtual required User User { get; set; }
+        public virtual required Lessor Lessor { get; set; }
+        public virtual required Owner Owner { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }

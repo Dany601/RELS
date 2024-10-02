@@ -128,6 +128,24 @@ namespace RELS.Context
             modelBuilder.Entity<PermissionHistory>()
                         .HasKey(u => u.Id);
 
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Person>()
+                        .HasOne(p => p.Lessor)
+                        .WithOne(d => d.Person)
+                        .HasForeignKey<Lessor>(d => d.Id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Person>()
+                        .HasOne(p => p.Owner)
+                        .WithOne(d => d.Person)
+                        .HasForeignKey<Owner>(d => d.Id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+                        .HasOne(p => p.Person)
+                        .WithOne(d => d.User)
+                        .HasForeignKey<Person>(d => d.Id);
+
 
             //Builder Triggers
             modelBuilder.Entity<Document>().ToTable(tb => tb.UseSqlOutputClause(false));
