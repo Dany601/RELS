@@ -12,6 +12,7 @@
         public required string Email { get; set; }
         public required string CellPhoneNumber { get; set; }
         public required string LandlineTelephone { get; set; }
+        public required string Pasword { get; set; }
         /// 
         public required string UserType { get; set; }
         public required DateTime Modified { get; set; }
