@@ -33,6 +33,14 @@ namespace RELS.Context
         public DbSet<DocumentHistory> DocumentHistories { get; set; }
         public DbSet<LessorHistory> LessorHistories { get; set; }
         public DbSet<PermissionHistory> PermissionHistories { get; set; }
+        public DbSet<UserHistory> UserHistories { get; set; }
+        public DbSet<UserTypeHistory> UserTypeHistories { get; set; }
+        public DbSet<TypePropertyHistory> TypePropertyHistories { get; set; }
+        public DbSet<TypeDocumentHistory> TypeDocumentHistories { get; set; }
+        public DbSet<StateHistory> StateHistories { get; set; }
+        public DbSet<SectorHistory> SectorHistories { get; set; }
+        public DbSet<PropertyHistory> PropertyHistories { get; set; }
+        public DbSet<PersonHistory> PersonHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
