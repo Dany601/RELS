@@ -29,6 +29,19 @@ namespace RELS.Context
         public DbSet<TypeProperty> TypesProperties { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Owner> Owners { get;  set; }
+        public DbSet<FavoriteHistory> FavoriteHistories { get; set; }
+        public DbSet<OwnerHistory> OwnerHistories { get; set; }
+        public DbSet<DocumentHistory> DocumentHistories { get; set; }
+        public DbSet<LessorHistory> LessorHistories { get; set; }
+        public DbSet<PermissionHistory> PermissionHistories { get; set; }
+        public DbSet<UserHistory> UserHistories { get; set; }
+        public DbSet<UserTypeHistory> UserTypeHistories { get; set; }
+        public DbSet<TypePropertyHistory> TypePropertyHistories { get; set; }
+        public DbSet<TypeDocumentHistory> TypeDocumentHistories { get; set; }
+        public DbSet<StateHistory> StateHistories { get; set; }
+        public DbSet<SectorHistory> SectorHistories { get; set; }
+        public DbSet<PropertyHistory> PropertyHistories { get; set; }
+        public DbSet<PersonHistory> PersonHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,23 +105,59 @@ namespace RELS.Context
             modelBuilder.Entity<Sector>()
                         .HasKey(u => u.Id);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Person>()
-                        .HasOne(p => p.Owner)
-                        .WithOne(p => p.Person)
-                        .HasForeignKey<Owner>(o => o.Id);
+            
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Person>()
-                        .HasOne(p => p.Lessor)
-                        .WithOne(p => p.Person)
-                        .HasForeignKey<Lessor>(o => o.Id);
+            modelBuilder.Entity<DocumentHistory>()
+                        .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Person>()
-                        .HasOne(p => p.User)
-                        .WithOne(p => p.Person)
-                        .HasForeignKey<User>(o => o.Id);
+            modelBuilder.Entity<FavoriteHistory>()
+                        .HasKey(u => u.Id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<LessorHistory>()
+                        .HasKey(u => u.Id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OwnerHistory>()
+                        .HasKey(u => u.Id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PermissionHistory>()
+                        .HasKey(u => u.Id);
+
+          
+            //Builder History
+            modelBuilder.Entity<DocumentHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<FavoriteHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<LessorHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<OwnerHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<PermissionHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<PersonHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<PropertyHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<SectorHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<StateHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<TypeDocumentHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<TypePropertyHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<UserHistory>().HasKey(u => u.Id);
+            modelBuilder.Entity<UserTypeHistory>().HasKey(u => u.Id);
+
+            //Builder Triggers
+            modelBuilder.Entity<Document>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Favorite>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Lessor>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Owner>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Permission>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Person>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Property>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Sector>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<State>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<TypeDocument>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<TypeProperty>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<User>().ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<UserType>().ToTable(tb => tb.UseSqlOutputClause(false));
+
         }
     }
 

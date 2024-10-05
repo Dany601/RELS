@@ -1,6 +1,6 @@
 ﻿namespace RELS.Model
 {
-    public class Person
+    public class PersonHistory
     {
         public int Id { get; set; }
         public required string FirstName { get; set; }
@@ -13,9 +13,10 @@
         public required string CellPhoneNumber { get; set; }
         public required string LandlineTelephone { get; set; }
         public required string Pasword { get; set; }
+        /// 
+        public required string UserType { get; set; }
+        public required DateTime Modified { get; set; }
+        public required string ModifiedBy { get; set; }
 
-        public virtual required TypeDocument TypeDocument { get; set; }
-        public virtual required User User { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }
