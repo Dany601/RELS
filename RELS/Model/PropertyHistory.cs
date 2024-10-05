@@ -3,6 +3,7 @@
     public class PropertyHistory
     {
         public int Id { get; set; }
+        public required string IdProperty { get; set; }
         public required string PropertyAddress { get; set; }
         public required string SquareMetersProperty { get; set; }
         public required string Cost { get; set; }
