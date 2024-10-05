@@ -1,4 +1,4 @@
-﻿using RELS.Model;
+using RELS.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RELS.Services;
@@ -11,6 +11,7 @@ namespace RELS.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
+
         private readonly IPersonService _PersonService;
 
         public PersonController(IPersonService personService)
@@ -56,10 +57,12 @@ namespace RELS.Controllers
 
 
         // Update a Person
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
 
         public async Task<IActionResult> UpdatePerson(int id, [FromForm] Person person)
         {
@@ -73,9 +76,11 @@ namespace RELS.Controllers
         }
 
         // Delete a person
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
 
         public async Task<IActionResult> SoftDeletePerson(int id)
         {
@@ -88,5 +93,3 @@ namespace RELS.Controllers
 
     }
 }
-
-

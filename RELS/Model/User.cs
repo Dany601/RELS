@@ -1,4 +1,4 @@
-﻿namespace RELS.Model
+namespace RELS.Model
 {
     public class User
     {

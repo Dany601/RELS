@@ -1,4 +1,4 @@
-﻿using RELS.Model;
+using RELS.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RELS.Services;
@@ -11,6 +11,7 @@ namespace RELS.Controllers
     [ApiController]
     public class PropertyController : ControllerBase
     {
+
         private readonly IPropertyService _PropertyService;
 
         public PropertyController(IPropertyService propertyService)
@@ -56,10 +57,12 @@ namespace RELS.Controllers
 
 
         // Update a Property
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
 
         public async Task<IActionResult> UpdateProperty(int id, [FromForm] Property property)
         {
@@ -73,9 +76,11 @@ namespace RELS.Controllers
         }
 
         // Delete a property
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
 
         public async Task<IActionResult> SoftDeleteProperty(int id)
         {
@@ -88,4 +93,3 @@ namespace RELS.Controllers
 
     }
 }
-
