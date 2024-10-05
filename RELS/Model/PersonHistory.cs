@@ -3,6 +3,7 @@
     public class PersonHistory
     {
         public int Id { get; set; }
+        public required string Idperson { get; set; }
         public required string FirstName { get; set; }
         public required string SecondName { get; set; }
         public required string FirstLastName { get; set; }

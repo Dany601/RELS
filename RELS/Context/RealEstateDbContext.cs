@@ -28,7 +28,6 @@ namespace RELS.Context
         public DbSet<State> States { get; set; }
         public DbSet<TypeProperty> TypesProperties { get; set; }
         public DbSet<Sector> Sectors { get; set; }
-        public DbSet<Owner> Owners { get;  set; }
         public DbSet<FavoriteHistory> FavoriteHistories { get; set; }
         public DbSet<OwnerHistory> OwnerHistories { get; set; }
         public DbSet<DocumentHistory> DocumentHistories { get; set; }
