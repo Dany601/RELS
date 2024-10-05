@@ -12,8 +12,8 @@ using RELS.Context;
 namespace RELS.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    [Migration("20241002041905_AddtonoDocFavLessOwnPermi")]
-    partial class AddtonoDocFavLessOwnPermi
+    [Migration("20241005001136_UpdateDB")]
+    partial class UpdateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,12 +144,20 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Lessor", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Lessors");
 
@@ -187,12 +195,20 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Owner", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Owners");
 
@@ -298,7 +314,10 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Person", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CellPhoneNumber")
                         .IsRequired()
@@ -346,11 +365,18 @@ namespace RELS.Migrations
                     b.Property<int>("TypeDocumentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TypeDocumentId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("People");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.PersonHistory", b =>
@@ -470,6 +496,8 @@ namespace RELS.Migrations
                     b.HasIndex("TypesPropertiesId");
 
                     b.ToTable("Properties");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.PropertyHistory", b =>
@@ -579,6 +607,8 @@ namespace RELS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sectors");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.SectorHistory", b =>
@@ -627,6 +657,8 @@ namespace RELS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.StateHistory", b =>
@@ -675,6 +707,8 @@ namespace RELS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypesDocuments");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.TypeDocumentHistory", b =>
@@ -723,6 +757,8 @@ namespace RELS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypesProperties");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.TypePropertyHistory", b =>
@@ -733,6 +769,10 @@ namespace RELS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("IdTypeProperty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
@@ -741,10 +781,6 @@ namespace RELS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameTypeProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -772,6 +808,8 @@ namespace RELS.Migrations
                     b.HasIndex("UserTypeId");
 
                     b.ToTable("Users");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.UserHistory", b =>
@@ -782,7 +820,7 @@ namespace RELS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("IdUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -790,18 +828,6 @@ namespace RELS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -832,6 +858,8 @@ namespace RELS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserTypes");
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("RELS.Model.UserTypeHistory", b =>
@@ -842,6 +870,10 @@ namespace RELS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("IdUserType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
@@ -850,10 +882,6 @@ namespace RELS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -876,8 +904,8 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Lessor", b =>
                 {
                     b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Lessor")
-                        .HasForeignKey("RELS.Model.Lessor", "Id")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -887,8 +915,8 @@ namespace RELS.Migrations
             modelBuilder.Entity("RELS.Model.Owner", b =>
                 {
                     b.HasOne("RELS.Model.Person", "Person")
-                        .WithOne("Owner")
-                        .HasForeignKey("RELS.Model.Owner", "Id")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -916,15 +944,15 @@ namespace RELS.Migrations
 
             modelBuilder.Entity("RELS.Model.Person", b =>
                 {
-                    b.HasOne("RELS.Model.User", "User")
-                        .WithOne("Person")
-                        .HasForeignKey("RELS.Model.Person", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RELS.Model.TypeDocument", "TypeDocument")
                         .WithMany()
                         .HasForeignKey("TypeDocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RELS.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1015,21 +1043,6 @@ namespace RELS.Migrations
                         .IsRequired();
 
                     b.Navigation("UserType");
-                });
-
-            modelBuilder.Entity("RELS.Model.Person", b =>
-                {
-                    b.Navigation("Lessor")
-                        .IsRequired();
-
-                    b.Navigation("Owner")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RELS.Model.User", b =>
-                {
-                    b.Navigation("Person")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
