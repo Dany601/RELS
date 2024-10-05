@@ -1,95 +1,85 @@
-using RELS.Model;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RELS.Model;
 using RELS.Services;
 
-
 namespace RELS.Controllers
-
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PropertyController : ControllerBase
     {
-
-        private readonly IPropertyService _PropertyService;
+        private readonly IPropertyService _propertyService;
 
         public PropertyController(IPropertyService propertyService)
         {
-            _PropertyService = propertyService;
+            _propertyService = propertyService;
         }
 
-
-        // Get all Property
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Property>>> GetAllProperties()
+
+        public async Task<ActionResult<IEnumerable<Property>>> GetAllProperty()
         {
-            var properties = await _PropertyService.GetAllPropertiesAsync();
-            return Ok(properties);
-        }
-
-
-        // Get property by id
-        [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Property>> GetPropertyById(int id)
-        {
-            var property = await _PropertyService.GetPropertyByIdAsync(id);
-            if (property == null) return NotFound();
-
+            var property = await _propertyService.GetAllPropertyAsync();
             return Ok(property);
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        // Create a Property
+        public async Task<ActionResult<Property>> GetPropertyById(int id)
+        {
+            var property = await _propertyService.GetAllPropertyAsync();
+            if (property == null)
+                return NotFound();
+            return Ok(property);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateProperty([FromForm] Property property)
+
+        public async Task<ActionResult> CreateProperty([FromBody] Property property)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            await _PropertyService.CreatePropertyAsync(property);
-            return CreatedAtAction(nameof(GetPropertyById), new { id = property.Id }, property);
+            await _propertyService.CreatePropertyAsync(property);
+            return CreatedAtAction(nameof(GetPropertyById), new { id = property.PropertyId }, property);
         }
-
-
-        // Update a Property
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-
-        public async Task<IActionResult> UpdateProperty(int id, [FromForm] Property property)
+        public async Task<ActionResult> UpdateProperty(int id, [FromBody] Property property)
         {
-            if (id != property.Id) return BadRequest();
+            if (id != property.PropertyId)
+                return BadRequest();
 
-            var existingProperty = await _PropertyService.GetPropertyByIdAsync(id);
-            if (existingProperty == null) return NotFound();
-
-            await _PropertyService.UpdatePropertyAsync(property);
+            var existingProperty = await _propertyService.GetPropertyByIdAsync(id);
             return NoContent();
         }
-
-        // Delete a property
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-
-        public async Task<IActionResult> SoftDeleteProperty(int id)
+        public async Task<ActionResult> SoftDeleteProperty(int id)
         {
-            var property = await _PropertyService.GetPropertyByIdAsync(id);
-            if (property == null) return NotFound();
+            var property = await _propertyService.GetPropertyByIdAsync(id);
+            if (property == null)
+                return NotFound();
 
-            await _PropertyService.SoftDeletePropertyAsync(id);
+            await _propertyService.SoftDeletePropertyAsync(id);
             return NoContent();
         }
+
+
+
 
     }
 }
