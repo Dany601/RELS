@@ -21,8 +21,8 @@ namespace RELS.Migrations
             -- If there are inserted or updated records
             IF EXISTS (SELECT * FROM inserted)
             BEGIN
-                INSERT INTO UserTypeHistories (Name, IdUsertype, Modified, ModifiedBy)
-                SELECT i.Name, i.Id,
+                INSERT INTO UserTypeHistories (IdUsertype, Name, Modified, ModifiedBy)
+                SELECT i.Id, i.Name,
                     GETDATE(),
                         CASE 
                             WHEN EXISTS (SELECT * FROM deleted) THEN 'UPDATE' 
@@ -34,8 +34,8 @@ namespace RELS.Migrations
             -- If there are deleted records
             IF EXISTS (SELECT * FROM deleted)
             BEGIN
-                INSERT INTO UserTypeHistories (Name, IdUsertype, Modified, ModifiedBy)
-                SELECT d.Name, d.Id, GETDATE(), 'DELETE'
+                INSERT INTO UserTypeHistories (IdUsertype, Name, Modified, ModifiedBy)
+                SELECT d.Id, d.Name, GETDATE(), 'DELETE'
                         FROM deleted d;
             END
         END;
