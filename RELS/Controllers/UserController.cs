@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateUser([FromForm] User user)
+        public async Task<ActionResult> CreateUser([FromForm] int usertypeid)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _UserService.CreateUserAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            await _UserService.CreateUserAsync(usertypeid);
+            return StatusCode(StatusCodes.Status201Created, "User Created");
         }
 
 

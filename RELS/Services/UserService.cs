@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(int id);
-        Task CreateUserAsync(User user);
+        Task CreateUserAsync(int usertypeid);
         Task UpdateUserAsync(User user);
         Task SoftDeleteUserAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a user
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(int usertypeid)
         {
-            await _userRepository.CreateUserAsync(user);
+            await _userRepository.CreateUserAsync(usertypeid);
         }
 
         // Update a user

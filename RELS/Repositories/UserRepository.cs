@@ -1,6 +1,7 @@
 ﻿using RELS.Context;
 using RELS.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 
 namespace RELS.Repositories
 {
@@ -8,7 +9,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(int id);
-        Task CreateUserAsync(User user);
+        Task CreateUserAsync(int usertypeid);
         Task UpdateUserAsync(User user);
         Task SoftDeleteUserAsync(int id);
     }
@@ -23,8 +24,17 @@ namespace RELS.Repositories
         }
 
         // Create User
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(int usertypeid)
         {
+            // Fetch the UserType
+            var userType = await _context.UserTypes.FindAsync(usertypeid) ?? throw new Exception("UserType not found");
+            
+
+            var user = new User
+            {
+                UserType = userType,
+
+            };
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
