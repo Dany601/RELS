@@ -408,6 +408,10 @@ namespace RELS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Idperson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LandlineTelephone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -428,10 +432,6 @@ namespace RELS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -513,6 +513,10 @@ namespace RELS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdProperty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Latitude")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -533,10 +537,6 @@ namespace RELS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SquareMetersProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
