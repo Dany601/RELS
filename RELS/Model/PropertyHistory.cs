@@ -11,7 +11,6 @@
         public required string Latitude { get; set; }
         public required string Altitude { get; set; }
         /// 
-        public required string UserType { get; set; }
         public required DateTime Modified { get; set; }
         public required string ModifiedBy { get; set; }
     }

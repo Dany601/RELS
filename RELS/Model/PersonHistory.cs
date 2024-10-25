@@ -15,7 +15,6 @@
         public required string LandlineTelephone { get; set; }
         public required string Pasword { get; set; }
         /// 
-        public required string UserType { get; set; }
         public required DateTime Modified { get; set; }
         public required string ModifiedBy { get; set; }
 
