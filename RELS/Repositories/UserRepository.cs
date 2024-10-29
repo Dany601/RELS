@@ -9,7 +9,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(int id);
-        Task CreateUserAsync(int usertypeid);
+        Task CreateUserAsync(string name, string lastname, string email, string password, string identification, string cellphonenumber, int typedocument, int usertypeid);
         Task UpdateUserAsync(User user);
         Task SoftDeleteUserAsync(int id);
     }
@@ -24,14 +24,21 @@ namespace RELS.Repositories
         }
 
         // Create User
-        public async Task CreateUserAsync(int usertypeid)
+        public async Task CreateUserAsync(string name, string lastname, string email, string password, string identification, string cellphonenumber,int typedocument, int usertypeid)
         {
             // Fetch the UserType
             var userType = await _context.UserTypes.FindAsync(usertypeid) ?? throw new Exception("UserType not found");
-            
+            var typeDocument = await _context.TypesDocuments.FindAsync(typedocument) ?? throw new Exception("TypeDocument not found");
 
             var user = new User
             {
+                Name = name,
+                LastName = lastname,
+                Email = email,
+                Password = password,
+                Identification = identification,
+                CellPhoneNumber = cellphonenumber,
+                TypeDocument = typeDocument,
                 UserType = userType,
 
             };

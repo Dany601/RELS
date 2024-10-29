@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(int id);
-        Task CreateUserAsync(int usertypeid);
+        Task CreateUserAsync(string name,string lastname,string email,string password, string identification, string cellphonenumber, int typedocument,int usertypeid);
         Task UpdateUserAsync(User user);
         Task SoftDeleteUserAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a user
-        public async Task CreateUserAsync(int usertypeid)
+        public async Task CreateUserAsync(string name, string lastname, string email, string password, string identification, string cellphonenumber, int typedocument, int usertypeid)
         {
-            await _userRepository.CreateUserAsync(usertypeid);
+            await _userRepository.CreateUserAsync(name, lastname,  email,  password, identification, cellphonenumber, typedocument, usertypeid);
         }
 
         // Update a user

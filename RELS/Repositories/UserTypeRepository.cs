@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<UserType>> GetAllUserTypesAsync();
         Task<UserType> GetUserTypeByIdAsync(int id);
-        Task CreateUserTypeAsync(UserType usertype);
+        Task CreateUserTypeAsync(string name);
         Task UpdateUserTypeAsync(UserType usertype);
         Task SoftDeleteUserTypeAsync(int id);
     }
@@ -23,9 +23,13 @@ namespace RELS.Repositories
         }
 
         // Create UserType
-        public async Task CreateUserTypeAsync(UserType usertype)
+        public async Task CreateUserTypeAsync(string name)
         {
-            await _context.UserTypes.AddAsync(usertype);
+            var userType = new UserType
+            {
+                Name = name,
+            };
+            await _context.UserTypes.AddAsync(userType);
             await _context.SaveChangesAsync();
 
         }
