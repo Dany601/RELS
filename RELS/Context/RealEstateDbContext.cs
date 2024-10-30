@@ -16,7 +16,6 @@ namespace RELS.Context
 
         public DbSet<PermissionXUser> PermissionsXUser { get; set; }
         public DbSet<Permission> Permissions { get; set; }
-        public DbSet<Person> People { get; set; }
         public DbSet<TypeDocument> TypesDocuments { get; set; }
         public DbSet<Lessor> Lessors { get; set; }
         public DbSet<PropertyXOwner> PropertiesXOwners { get; set; }
@@ -40,7 +39,7 @@ namespace RELS.Context
         public DbSet<StateHistory> StateHistories { get; set; }
         public DbSet<SectorHistory> SectorHistories { get; set; }
         public DbSet<PropertyHistory> PropertyHistories { get; set; }
-        public DbSet<PersonHistory> PersonHistories { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,10 +53,6 @@ namespace RELS.Context
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Permission>()
-                        .HasKey(u => u.Id);
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Person>()
                         .HasKey(u => u.Id);
 
             base.OnModelCreating(modelBuilder);
@@ -133,7 +128,7 @@ namespace RELS.Context
             modelBuilder.Entity<LessorHistory>().HasKey(u => u.Id);
             modelBuilder.Entity<OwnerHistory>().HasKey(u => u.Id);
             modelBuilder.Entity<PermissionHistory>().HasKey(u => u.Id);
-            modelBuilder.Entity<PersonHistory>().HasKey(u => u.Id);
+    
             modelBuilder.Entity<PropertyHistory>().HasKey(u => u.Id);
             modelBuilder.Entity<SectorHistory>().HasKey(u => u.Id);
             modelBuilder.Entity<StateHistory>().HasKey(u => u.Id);
@@ -148,7 +143,6 @@ namespace RELS.Context
             modelBuilder.Entity<Lessor>().ToTable(tb => tb.UseSqlOutputClause(false));
             modelBuilder.Entity<Owner>().ToTable(tb => tb.UseSqlOutputClause(false));
             modelBuilder.Entity<Permission>().ToTable(tb => tb.UseSqlOutputClause(false));
-            modelBuilder.Entity<Person>().ToTable(tb => tb.UseSqlOutputClause(false));
             modelBuilder.Entity<Property>().ToTable(tb => tb.UseSqlOutputClause(false));
             modelBuilder.Entity<Sector>().ToTable(tb => tb.UseSqlOutputClause(false));
             modelBuilder.Entity<State>().ToTable(tb => tb.UseSqlOutputClause(false));

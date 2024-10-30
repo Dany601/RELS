@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateTypeDocument([FromForm] TypeDocument typedocument)
+        public async Task<ActionResult> CreateTypeDocument([FromForm] string name)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _TypeDocumentService.CreateTypeDocumentAsync(typedocument);
-            return CreatedAtAction(nameof(GetTypeDocumentById), new { id = typedocument.Id }, typedocument);
+            await _TypeDocumentService.CreateTypeDocumentAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "TypeDocument Created");
         }
 
 

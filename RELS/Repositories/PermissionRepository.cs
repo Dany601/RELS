@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Permission>> GetAllPermissionsAsync();
         Task<Permission> GetPermissionByIdAsync(int id);
-        Task CreatePermissionAsync(Permission permission);
+        Task CreatePermissionAsync(string name);
         Task UpdatePermissionAsync(Permission permission);
         Task SoftDeletePermissionAsync(int id);
     }
@@ -23,8 +23,12 @@ namespace RELS.Repositories
         }
 
         // Create Permission
-        public async Task CreatePermissionAsync(Permission permission)
+        public async Task CreatePermissionAsync(string name)
         {
+            var permission = new Permission 
+            {
+                Name = name
+            };
             await _context.Permissions.AddAsync(permission);
             await _context.SaveChangesAsync();
 

@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<Owner>> GetAllOwnersAsync();
         Task<Owner> GetOwnerByIdAsync(int id);
-        Task CreateOwnerAsync(Owner owner);
+        Task CreateOwnerAsync(int user);
         Task UpdateOwnerAsync(Owner owner);
         Task SoftDeleteOwnerAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a owner
-        public async Task CreateOwnerAsync(Owner owner)
+        public async Task CreateOwnerAsync(int user)
         {
-            await _ownerRepository.CreateOwnerAsync(owner);
+            await _ownerRepository.CreateOwnerAsync(user);
         }
 
         // Update a owner

@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<Property>> GetAllPropertiesAsync();
         Task<Property> GetPropertyByIdAsync(int id);
-        Task CreatePropertyAsync(Property property);
+        Task CreatePropertyAsync(string propertyaddress, string squaremetersproperty, string cost, string propertydescription, string latitude,string altitude, int stateid , int typespropertyid, int sectorid);
         Task UpdatePropertyAsync(Property property);
         Task SoftDeletePropertyAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a property
-        public async Task CreatePropertyAsync(Property property)
+        public async Task CreatePropertyAsync(string propertyaddress, string squaremetersproperty, string cost, string propertydescription, string latitude, string altitude, int stateid, int typespropertyid, int sectorid)
         {
-            await _propertyRepository.CreatePropertyAsync(property);
+            await _propertyRepository.CreatePropertyAsync(propertyaddress,squaremetersproperty,cost,propertydescription, latitude, altitude,  stateid, typespropertyid, sectorid);
         }
 
         // Update a property

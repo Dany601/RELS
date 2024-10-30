@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<State>> GetAllStatesAsync();
         Task<State> GetStateByIdAsync(int id);
-        Task CreateStateAsync(State state);
+        Task CreateStateAsync(string name);
         Task UpdateStateAsync(State state);
         Task SoftDeleteStateAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a state
-        public async Task CreateStateAsync(State state)
+        public async Task CreateStateAsync(string name)
         {
-            await _stateRepository.CreateStateAsync(state);
+            await _stateRepository.CreateStateAsync(name);
         }
 
         // Update a state

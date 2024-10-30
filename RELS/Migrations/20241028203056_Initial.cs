@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RELS.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,7 +66,7 @@ namespace RELS.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdLessor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Person = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    User = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -82,7 +82,7 @@ namespace RELS.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdOwner = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Person = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    User = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -122,43 +122,18 @@ namespace RELS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecondLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DocumentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdentificationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CellPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LandlineTelephone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pasword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonHistories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PropertyHistories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdProperty = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PropertyAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SquareMetersProperty = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cost = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PropertyDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Altitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -173,8 +148,8 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdSector = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SerctorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -203,8 +178,8 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdState = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -233,8 +208,8 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdTypeDocument = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -294,6 +269,13 @@ namespace RELS.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CellPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeDocument = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -403,6 +385,13 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CellPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeDocumentId = table.Column<int>(type: "int", nullable: false),
                     UserTypeId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -410,46 +399,15 @@ namespace RELS.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_UserTypes_UserTypeId",
-                        column: x => x.UserTypeId,
-                        principalTable: "UserTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "People",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecondLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DocumentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdentificationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CellPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LandlineTelephone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pasword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeDocumentId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_People", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_People_TypesDocuments_TypeDocumentId",
+                        name: "FK_Users_TypesDocuments_TypeDocumentId",
                         column: x => x.TypeDocumentId,
                         principalTable: "TypesDocuments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_People_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "FK_Users_UserTypes_UserTypeId",
+                        column: x => x.UserTypeId,
+                        principalTable: "UserTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -460,16 +418,16 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lessors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lessors_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
+                        name: "FK_Lessors_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -480,16 +438,16 @@ namespace RELS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Owners", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Owners_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
+                        name: "FK_Owners_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -577,23 +535,13 @@ namespace RELS.Migrations
                 column: "LessorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessors_PersonId",
+                name: "IX_Lessors_UserId",
                 table: "Lessors",
-                column: "PersonId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Owners_PersonId",
+                name: "IX_Owners_UserId",
                 table: "Owners",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_People_TypeDocumentId",
-                table: "People",
-                column: "TypeDocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_People_UserId",
-                table: "People",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -647,6 +595,11 @@ namespace RELS.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_TypeDocumentId",
+                table: "Users",
+                column: "TypeDocumentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_UserTypeId",
                 table: "Users",
                 column: "UserTypeId");
@@ -675,9 +628,6 @@ namespace RELS.Migrations
 
             migrationBuilder.DropTable(
                 name: "PermissionsXUser");
-
-            migrationBuilder.DropTable(
-                name: "PersonHistories");
 
             migrationBuilder.DropTable(
                 name: "PropertiesXLessors");
@@ -722,7 +672,7 @@ namespace RELS.Migrations
                 name: "Properties");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Sectors");
@@ -735,9 +685,6 @@ namespace RELS.Migrations
 
             migrationBuilder.DropTable(
                 name: "TypesDocuments");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "UserTypes");

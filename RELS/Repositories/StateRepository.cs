@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<State>> GetAllStatesAsync();
         Task<State> GetStateByIdAsync(int id);
-        Task CreateStateAsync(State state);
+        Task CreateStateAsync(string name);
         Task UpdateStateAsync(State state);
         Task SoftDeleteStateAsync(int id);
     }
@@ -23,8 +23,12 @@ namespace RELS.Repositories
         }
 
         // Create State
-        public async Task CreateStateAsync(State state)
+        public async Task CreateStateAsync(string name)
         {
+            var state = new State
+            {
+                Name = name,
+            };
             await _context.States.AddAsync(state);
             await _context.SaveChangesAsync();
 

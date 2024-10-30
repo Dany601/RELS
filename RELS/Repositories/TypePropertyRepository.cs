@@ -7,7 +7,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<TypeProperty>> GetAllTypesPropertiesAsync();
         Task<TypeProperty> GetTypePropertyByIdAsync(int id);
-        Task CreateTypePropertyAsync(TypeProperty typeproperty);
+        Task CreateTypePropertyAsync(string name);
         Task UpdateTypePropertyAsync(TypeProperty typeproperty);
         Task SoftDeleteTypePropertyAsync(int id);
     }
@@ -21,11 +21,14 @@ namespace RELS.Repositories
         }
 
         // Create TypeProperty
-        public async Task CreateTypePropertyAsync(TypeProperty typeproperty)
+        public async Task CreateTypePropertyAsync(string name)
         {
+            var typeproperty = new TypeProperty
+            {
+                NameTypeProperty = name,
+            };
             await _context.TypesProperties.AddAsync(typeproperty);
             await _context.SaveChangesAsync();
-
         }
         // Get typeproperty by Id
         public async Task<TypeProperty> GetTypePropertyByIdAsync(int id)

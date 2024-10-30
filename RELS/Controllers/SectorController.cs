@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateSector([FromForm] Sector sector)
+        public async Task<ActionResult> CreateSector([FromForm] string name)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _SectorService.CreateSectorAsync(sector);
-            return CreatedAtAction(nameof(GetSectorById), new { id = sector.Id }, sector);
+            await _SectorService.CreateSectorAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "Sector Created");
         }
 
 

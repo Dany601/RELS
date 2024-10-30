@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<TypeDocument>> GetAllTypesDocumentsAsync();
         Task<TypeDocument> GetTypeDocumentByIdAsync(int id);
-        Task CreateTypeDocumentAsync(TypeDocument typedocument);
+        Task CreateTypeDocumentAsync(string name);
         Task UpdateTypeDocumentAsync(TypeDocument typedocument);
         Task SoftDeleteTypeDocumentAsync(int id);
     }
@@ -23,9 +23,13 @@ namespace RELS.Repositories
         }
 
         // Create TypeDocument
-        public async Task CreateTypeDocumentAsync(TypeDocument typedocument)
+        public async Task CreateTypeDocumentAsync(string name)
         {
-            await _context.TypesDocuments.AddAsync(typedocument);
+            var document = new TypeDocument
+            {
+                Name = name,
+            };
+            await _context.TypesDocuments.AddAsync(document);
             await _context.SaveChangesAsync();
 
         }

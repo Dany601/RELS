@@ -46,13 +46,13 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateTypeProperty([FromForm] TypeProperty typeproperty)
+        public async Task<ActionResult> CreateTypeProperty([FromForm] string name)
         {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _TypePropertyService.CreateTypePropertyAsync(typeproperty);
-            return CreatedAtAction(nameof(GetTypePropertyById), new { id = typeproperty.Id }, typeproperty);
+            await _TypePropertyService.CreateTypePropertyAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "TypeProperty Created");
         }
 
 

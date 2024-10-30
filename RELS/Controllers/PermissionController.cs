@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreatePermission([FromForm] Permission permission)
+        public async Task<ActionResult> CreatePermission([FromForm] string name)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _PermissionService.CreatePermissionAsync(permission);
-            return CreatedAtAction(nameof(GetPermissionById), new { id = permission.Id }, permission);
+            await _PermissionService.CreatePermissionAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "Permission Created");
         }
 
 

@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<Lessor>> GetAllLessorsAsync();
         Task<Lessor> GetLessorByIdAsync(int id);
-        Task CreateLessorAsync(Lessor lessor);
+        Task CreateLessorAsync(int user);
         Task UpdateLessorAsync(Lessor lessor);
         Task SoftDeleteLessorAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a lessor
-        public async Task CreateLessorAsync(Lessor lessor)
+        public async Task CreateLessorAsync(int user)
         {
-            await _lessorRepository.CreateLessorAsync(lessor);
+            await _lessorRepository.CreateLessorAsync(user);
         }
 
         // Update a lessor
