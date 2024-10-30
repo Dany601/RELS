@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Sector>> GetAllSectorsAsync();
         Task<Sector> GetSectorByIdAsync(int id);
-        Task CreateSectorAsync(Sector sector);
+        Task CreateSectorAsync(string name);
         Task UpdateSectorAsync(Sector sector);
         Task SoftDeleteSectorAsync(int id);
     }
@@ -23,8 +23,11 @@ namespace RELS.Repositories
         }
 
         // Create Sector
-        public async Task CreateSectorAsync(Sector sector)
+        public async Task CreateSectorAsync(string name)
         {
+            var sector = new Sector 
+            { 
+                SerctorName = name };
             await _context.Sectors.AddAsync(sector);
             await _context.SaveChangesAsync();
 

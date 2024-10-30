@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateState([FromForm] State state)
+        public async Task<ActionResult> CreateState([FromForm] string name)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _StateService.CreateStateAsync(state);
-            return CreatedAtAction(nameof(GetStateById), new { id = state.Id }, state);
+            await _StateService.CreateStateAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "State Created");
         }
 
 

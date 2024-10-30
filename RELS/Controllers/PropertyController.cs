@@ -47,12 +47,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateProperty([FromForm] Property property)
+        public async Task<ActionResult> CreateProperty([FromForm] string propertyaddress, [FromForm] string squaremetersproperty, [FromForm] string cost, [FromForm] string propertydescription, [FromForm] string latitude, [FromForm] string altitude, [FromForm] int stateid, [FromForm] int typespropertyid, [FromForm] int sectorid)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _PropertyService.CreatePropertyAsync(property);
-            return CreatedAtAction(nameof(GetPropertyById), new { id = property.Id }, property);
+            await _PropertyService.CreatePropertyAsync(propertyaddress, squaremetersproperty, cost, propertydescription, latitude, altitude, stateid, typespropertyid, sectorid);
+            return StatusCode(StatusCodes.Status201Created, "Property Created");
         }
 
 

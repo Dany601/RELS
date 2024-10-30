@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Lessor>> GetAllLessorsAsync();
         Task<Lessor> GetLessorByIdAsync(int id);
-        Task CreateLessorAsync(Lessor lessor);
+        Task CreateLessorAsync(int user);
         Task UpdateLessorAsync(Lessor lessor);
         Task SoftDeleteLessorAsync(int id);
     }
@@ -23,10 +23,16 @@ namespace RELS.Repositories
         }
 
         // Create Lessor
-        public async Task CreateLessorAsync(Lessor lessor)
+        public async Task CreateLessorAsync(int user)
         {
+            var userlessor = await _context.Users.FindAsync(user) ?? throw new Exception("Lessor not found");
+
+           var lessor = new Lessor 
+           { 
+               User = userlessor 
+           };
             await _context.Lessors.AddAsync(lessor);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();  
 
         }
         // Get lessor by Id

@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Owner>> GetAllOwnersAsync();
         Task<Owner> GetOwnerByIdAsync(int id);
-        Task CreateOwnerAsync(Owner owner);
+        Task CreateOwnerAsync(int user);
         Task UpdateOwnerAsync(Owner owner);
         Task SoftDeleteOwnerAsync(int id);
     }
@@ -23,11 +23,17 @@ namespace RELS.Repositories
         }
 
         // Create Owner
-        public async Task CreateOwnerAsync(Owner owner)
+        public async Task CreateOwnerAsync(int user)
         {
+            var userOwner = await _context.Users.FindAsync(user) ?? throw new Exception("Owner not found");
+
+            var owner = new Owner
+            {
+                User = userOwner,
+            };
+
             await _context.Owners.AddAsync(owner);
             await _context.SaveChangesAsync();
-
         }
         // Get owner by Id
         public async Task<Owner> GetOwnerByIdAsync(int id)

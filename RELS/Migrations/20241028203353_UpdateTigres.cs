@@ -52,8 +52,14 @@ namespace RELS.Migrations
             -- If there are inserted or updated records
             IF EXISTS (SELECT * FROM inserted)
             BEGIN
-                INSERT INTO TypePropertyHistories (IdTypeProperty, NameTypeProperty, Modified, ModifiedBy)
-                SELECT i.Id, i.NameTypeProperty,
+                INSERT INTO TypePropertyHistories (
+                            IdTypeProperty, 
+                            NameTypeProperty, 
+                            Modified, 
+                            ModifiedBy)
+                SELECT 
+                            i.Id,
+                            i.NameTypeProperty,
                     GETDATE(),
                         CASE 
                             WHEN EXISTS (SELECT * FROM deleted) THEN 'UPDATE' 
@@ -65,7 +71,11 @@ namespace RELS.Migrations
             -- If there are deleted records
             IF EXISTS (SELECT * FROM deleted)
             BEGIN
-                INSERT INTO TypePropertyHistories (IdTypeProperty, NameTypeProperty, Modified, ModifiedBy)
+                INSERT INTO TypePropertyHistories (
+                             IdTypeProperty, 
+                             NameTypeProperty, 
+                             Modified,
+                             ModifiedBy)
                 SELECT d.Id, d.NameTypeProperty, GETDATE(), 'DELETE'
                         FROM deleted d;
             END

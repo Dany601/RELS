@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateOwner([FromForm] Owner owner)
+        public async Task<ActionResult> CreateOwner([FromForm] int user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _OwnerService.CreateOwnerAsync(owner);
-            return CreatedAtAction(nameof(GetOwnerById), new { id = owner.Id }, owner);
+            await _OwnerService.CreateOwnerAsync(user);
+            return StatusCode(StatusCodes.Status201Created, "User Created");
         }
 
 

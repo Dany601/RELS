@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Property>> GetAllPropertiesAsync();
         Task<Property> GetPropertyByIdAsync(int id);
-        Task CreatePropertyAsync(Property property);
+        Task CreatePropertyAsync(string propertyaddress, string squaremetersproperty, string cost, string propertydescription, string latitude, string altitude, int stateid, int typespropertyid, int sectorid);
         Task UpdatePropertyAsync(Property property);
         Task SoftDeletePropertyAsync(int id);
     }
@@ -23,8 +23,25 @@ namespace RELS.Repositories
         }
 
         // Create Property
-        public async Task CreatePropertyAsync(Property property)
+        public async Task CreatePropertyAsync(string propertyaddress, string squaremetersproperty, string cost, string propertydescription, string latitude, string altitude, int stateid, int typespropertyid, int sectorid)
         {
+            var state = await _context.States.FindAsync(stateid) ?? throw new Exception("State not found");
+            var typeproperty = await _context.TypesProperties.FindAsync(typespropertyid) ?? throw new Exception("TypesProperty not found");
+            var sector = await _context.Sectors.FindAsync(sectorid) ?? throw new Exception("Sector not found");
+            
+            var property = new Property
+            {
+                PropertyAddress = propertyaddress,
+                SquareMetersProperty = squaremetersproperty,
+                Cost = cost,
+                PropertyDescription = propertydescription,
+                Latitude = latitude,
+                Altitude = altitude,
+                State = state,
+                TypesProperties = typeproperty,
+                Sectors = sector,
+
+            };
             await _context.Properties.AddAsync(property);
             await _context.SaveChangesAsync();
 
