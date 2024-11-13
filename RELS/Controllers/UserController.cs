@@ -51,7 +51,7 @@ namespace RELS.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
 
-            await _UserService.CreateUserAsync(name,lastname,email,password,identification,cellphonenumber,typedocument,usertypeid);
+            await _UserService.CreateUserAsync(name, lastname, email, password, identification, cellphonenumber, typedocument, usertypeid);
             return StatusCode(StatusCodes.Status201Created, "User Created");
         }
 
@@ -86,6 +86,27 @@ namespace RELS.Controllers
             await _UserService.SoftDeleteUserAsync(id);
             return NoContent();
         }
+        //
+        [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
+        public async Task<ActionResult> ValidateUser(string email, string password)
+        {
+            if (email == null || password == null) return BadRequest(ModelState);
+
+            // Validate the user
+            var isValid = await _UserService.ValidateUserAsync(email, password);
+
+            if (isValid)
+            {
+                return Ok(new { Message = "Login successful" });
+            }
+
+            // Handle failed login
+            return Unauthorized(new { Message = "Invalid Password" });
+
+        }
     }
 }
