@@ -8,7 +8,7 @@ namespace RELS.Services
     {
         Task<IEnumerable<Document>> GetAllDocumentsAsync();
         Task<Document> GetDocumentByIdAsync(int id);
-        Task CreateDocumentAsync(Document document);
+        Task CreateDocumentAsync(string filerute, DateOnly date, int lessor);
         Task UpdateDocumentAsync(Document document);
         Task SoftDeleteDocumentAsync(int id);
     }
@@ -35,9 +35,9 @@ namespace RELS.Services
         }
 
         // Create a document
-        public async Task CreateDocumentAsync(Document document)
+        public async Task CreateDocumentAsync(string filerute, DateOnly date, int lessor)
         {
-            await _documentRepository.CreateDocumentAsync(document);
+            await _documentRepository.CreateDocumentAsync(filerute, date, lessor);
         }
 
         // Update a document

@@ -1,4 +1,5 @@
-﻿using RELS.Model;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using RELS.Model;
 using RELS.Repositories;
 
 
@@ -11,6 +12,7 @@ namespace RELS.Services
         Task CreateUserAsync(string name,string lastname,string email,string password, string identification, string cellphonenumber, int typedocument,int usertypeid);
         Task UpdateUserAsync(User user);
         Task SoftDeleteUserAsync(int id);
+        Task<bool> ValidateUserAsync(string email, string password);
     }
 
     public class UserService : IUserService
@@ -59,6 +61,12 @@ namespace RELS.Services
         public async Task SoftDeleteUserAsync(int id)
         {
             await _userRepository.SoftDeleteUserAsync(id);
+        }
+
+        //
+        public async Task<bool> ValidateUserAsync(string email, string password) 
+        {
+            return await _userRepository.ValidateUserAsync(email, password);
         }
     }
 }

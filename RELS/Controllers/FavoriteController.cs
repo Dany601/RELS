@@ -46,12 +46,12 @@ namespace RELS.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateFavorite([FromForm] Favorite favorite)
+        public async Task<ActionResult> CreateFavorite([FromForm] string name)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _FavoriteService.CreateFavoriteAsync(favorite);
-            return CreatedAtAction(nameof(GetFavoriteById), new { id = favorite.Id }, favorite);
+            await _FavoriteService.CreateFavoriteAsync(name);
+            return StatusCode(StatusCodes.Status201Created, "Favorite Created");
         }
 
 

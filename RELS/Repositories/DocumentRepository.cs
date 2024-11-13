@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Document>> GetAllDocumentsAsync();
         Task<Document> GetDocumentByIdAsync(int id);
-        Task CreateDocumentAsync(Document document);
+        Task CreateDocumentAsync(string filerute,DateOnly date ,int lessor);
         Task UpdateDocumentAsync(Document document);
         Task SoftDeleteDocumentAsync(int id);
     }
@@ -23,8 +23,16 @@ namespace RELS.Repositories
         }
         
         // Create Document
-        public async Task CreateDocumentAsync(Document document)
+        public async Task CreateDocumentAsync(string filerute, DateOnly date, int lessor)
         {
+            var Lessor = await _context.Lessors.FindAsync(lessor) ?? throw new Exception("UserType not found");
+
+            var document = new Document 
+            {   
+                FileRoute = filerute,
+                Date = date,
+                Lessor = Lessor };
+
             await _context.Documents.AddAsync(document);
             await _context.SaveChangesAsync();
 

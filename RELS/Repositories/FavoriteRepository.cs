@@ -8,7 +8,7 @@ namespace RELS.Repositories
     {
         Task<IEnumerable<Favorite>> GetAllFavoritesAsync();
         Task<Favorite> GetFavoriteByIdAsync(int id);
-        Task CreateFavoriteAsync(Favorite favorite);
+        Task CreateFavoriteAsync(string name);
         Task UpdateFavoriteAsync(Favorite favorite);
         Task SoftDeleteFavoriteAsync(int id);
     }
@@ -23,8 +23,12 @@ namespace RELS.Repositories
         }
 
         // Create Favorite
-        public async Task CreateFavoriteAsync(Favorite favorite)
+        public async Task CreateFavoriteAsync(string name)
         {
+            var favorite = new Favorite 
+            { 
+                Name = name
+            };
             await _context.Favorites.AddAsync(favorite);
             await _context.SaveChangesAsync();
 
